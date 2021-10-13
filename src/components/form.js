@@ -1,9 +1,9 @@
 import React, { useState }from 'react'
-
+import uuid from 'react-uuid';
 
 const Form = () => {
 
-    //state para turnos
+    //state for appointments
     const [appointment, setAppointment] = useState({
         patient: '',
         email:'',
@@ -13,6 +13,9 @@ const Form = () => {
         appointment_reason:''
     })
 
+    const [error, setError] = useState(false)
+
+    //input value changes
     const handleChange = e => {
         setAppointment({
             ... appointment,
@@ -20,11 +23,34 @@ const Form = () => {
         })
     }
 
+
+    const {patient, email, date, time, number, appointment_reason} = appointment
+
+    //submiting form
+    const appointmentSubmit = e => {
+        e.preventDefault()
+
+        //form validation 
+       if(patient.trim() === '' || email.trim() === '' || date.trim() === '' || time.trim() === '' || number.trim() === '' || appointment_reason.trim() === ''){
+           setError(true);
+       }}
+
+       
+    // setError(false);
+
+       //get an id
+       appointment.id = uuid();
+       console.log(appointment);
+
     return ( 
         <>
             <h2>Get an Appointment</h2>
 
-            <form>
+                {error ? <p className='alerta-error'>All fields are required</p> : null}
+
+            <form
+                onSubmit={() => appointmentSubmit()}
+            >
                 <label>Patient's Name</label>
                 <input
                  type="text" 
@@ -32,6 +58,7 @@ const Form = () => {
                  className='u-full-width'
                  placeholder="Patient's Name"
                  onChange={handleChange}
+                 value={patient}
                  />
 
                 <label>Email</label>
@@ -41,6 +68,7 @@ const Form = () => {
                  className='u-full-width'
                  placeholder='Email'
                  onChange={handleChange}
+                 value={email}
                  />
 
                 <label>Date</label>
@@ -49,6 +77,7 @@ const Form = () => {
                  name='date'
                  className='u-full-width'
                  onChange={handleChange}
+                 value={date}
                  />
 
                 <label>Time</label>
@@ -57,6 +86,7 @@ const Form = () => {
                  name='time'
                  className='u-full-width'
                  onChange={handleChange}
+                 value={time}
                  />
 
                 <label>Phone Number</label>
@@ -66,15 +96,15 @@ const Form = () => {
                  className='u-full-width'
                  placeholder='Numero de Telefono'
                  onChange={handleChange}
+                 value={number}
                  />
 
                 <label>Appointment reason</label>
-                <textarea cols="30" rows="10" name='appointment_reason' className="u-full-width" placeholder='Motivo de Consulta' onChange={handleChange}></textarea>
+                <textarea cols="30" rows="10" name='appointment_reason' className="u-full-width" placeholder='Motivo de Consulta' onChange={handleChange} value={appointment_reason}></textarea>
 
                 <button
                     type='submit'
                     className="u-full-width button-primary"
-                
                 >Get Appointment</button>                  
             </form>
 

@@ -84,13 +84,15 @@ input[type="time"] {
 }
 
 .alerta-error {
-  background-color: white;
-  color: red;
+  background-color: #f8d7da;
+  color: #842029;
   padding: 1rem;
   font-size: 2rem;
   text-transform: uppercase;
   text-align: center;
   font-family:  'Staatliches', cursive;
+  border: solid 2px #842029;
+  border-radius: 2px;
 } 
 /* chrome */
 input::-webkit-outer-spin-button,
