@@ -54,9 +54,6 @@ const Form = ({getAppointment}) => {
 
 
 
-
-    const [error, setError] = useState(false)
-
     //input value changes
     const handleChange = e => {
         setAppointment({
@@ -65,24 +62,6 @@ const Form = ({getAppointment}) => {
         })
     };
 
-
-    const {patient, email, date, time, number, appointment_reason} = appointment
-
-    //submiting form
-    const appointmentSubmit = e => {
-        e.preventDefault()
-
-        //form validation 
-       if(patient.trim() === '' || email.trim() === '' || date.trim() === '' || time.trim() === '' || number.trim() === '' || appointment_reason.trim() === ''){
-           setError(true);
-       }}
-
-       
-    // setError(false);
-
-       //get an id
-       appointment.id = uuid();
-    //    console.log(appointment);
 
     return ( 
         <>
