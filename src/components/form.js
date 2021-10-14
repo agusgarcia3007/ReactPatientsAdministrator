@@ -11,20 +11,43 @@ const Form = () => {
         time:'',
         number:'',
         appointment_reason:''
-    })
+    });
+
+    const [error, setError] = useState(false);
+
+    const {patient, email, date, time, number, appointment_reason} = appointment;
+
+    //validating form
+    const appointmentSubmit = e => {
+        e.preventDefault();
+
+        if(patient.trim()==='' ||
+           email.trim()==='' || 
+           date.trim()==='' ||
+           time.trim()==='' ||
+           number.trim()===''||
+           appointment_reason.trim()===''
+           ){
+               console.log('error');
+            setError(true);
+            return;
+        }
+    }
 
     const handleChange = e => {
         setAppointment({
-            ... appointment,
+            ...appointment,
             [e.target.name] : e.target.value,
         })
-    }
+    };
 
     return ( 
         <>
             <h2>Get an Appointment</h2>
 
-            <form>
+            {error ? <p></p> :null}
+
+            <form onSubmit={() => appointmentSubmit()}>
                 <label>Patient's Name</label>
                 <input
                  type="text" 
