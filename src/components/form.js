@@ -1,7 +1,7 @@
 import React, { useState }from 'react'
+import uuid from 'react-uuid'
 
-
-const Form = () => {
+const Form = ({getAppointment}) => {
 
     //state para turnos
     const [appointment, setAppointment] = useState({
@@ -17,10 +17,11 @@ const Form = () => {
 
     const {patient, email, date, time, number, appointmentReason} = appointment;
 
-    //validating form
+    
     const appointmentSubmit = e => {
         e.preventDefault();
 
+        //validating form
         if(patient.trim()==='' ||
            email.trim()==='' || 
            date.trim()==='' ||
@@ -28,11 +29,21 @@ const Form = () => {
            number.trim()===''||
            appointmentReason.trim()===''
            ){
-               console.log('error');
             setError(true);
             return;
         }
+           
+         setError(false);
+
+        //get an ID
+        appointment.id = uuid();
+        console.log(appointment);
+
+        getAppointment(appointment);
     }
+
+
+
 
     const handleChange = e => {
         setAppointment({
@@ -51,7 +62,7 @@ const Form = () => {
                 <label>Patient's Name</label>
                 <input
                  type="text" 
-                 name='Patient'
+                 name='patient'
                  className='u-full-width'
                  placeholder="Patient's Name"
                  onChange={handleChange}

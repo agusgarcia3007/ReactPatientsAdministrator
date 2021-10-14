@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from './components/form';
 
 const App = () => {
+
+  const [appointments, setAppointments] = useState([]);
+
+  const getAppointment = appointment => {
+      setAppointments([
+        ...appointments,
+        appointment
+      ])
+  }
+
   return(
     <>
       <div className="container">
         <div className="row">
           <div className="one-half column">
-            <Form />
+            <Form 
+            getAppointment={getAppointment}
+            />
           </div>
           <div className="one-half column">
-            2
+            
           </div>
         </div>
       </div>
