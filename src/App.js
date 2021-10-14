@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from './components/form';
 import Appointment from './components/Appointment';
+import PropTypes from 'prop-types';
 
 const App = () => {
 
@@ -17,7 +18,7 @@ const App = () => {
     initialAppointments ?
     localStorage.setItem('appointments', JSON.stringify(appointments)) :
     localStorage.setItem('appointments', JSON.stringify([]));
-  },[appointments]);
+  },[appointments, initialAppointments]);
 
   const getAppointment = appointment => {
       setAppointments([
@@ -59,5 +60,10 @@ const App = () => {
     </>  
   )
 }
+
+Form.propTypes={
+  getAppointment:PropTypes.func.isRequired,
+}
+
 
 export default App;
