@@ -37,9 +37,19 @@ const Form = ({getAppointment}) => {
 
         //get an ID
         appointment.id = uuid();
-        console.log(appointment);
 
+        //create the appointment
         getAppointment(appointment);
+
+        //reset te form
+        setAppointment({
+            patient:'',
+            email:'',
+            date:'',
+            time:'',
+            number:'',
+            appointmentReason:''
+        })
     }
 
 

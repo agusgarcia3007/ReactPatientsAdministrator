@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Form from './components/form';
+import Appointment from './components/Appointment';
 
 const App = () => {
 
@@ -12,6 +13,12 @@ const App = () => {
       ])
   }
 
+  //delete an appointment
+  const delAppointment = id => {
+    const newAppointment = appointments.filter(appointment => appointment.id !== id);
+    setAppointments(newAppointment);
+  };
+
   return(
     <>
       <div className="container">
@@ -22,7 +29,14 @@ const App = () => {
             />
           </div>
           <div className="one-half column">
-            
+            <h2>Appointments</h2>
+            {appointments.map(appointment => (
+              <Appointment 
+                key={appointment.id}
+                appointment={appointment}
+                delAppointment={delAppointment}
+              />
+            ))}
           </div>
         </div>
       </div>
