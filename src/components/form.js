@@ -15,6 +15,7 @@ const Form = ({getAppointment}) => {
 
     const [error, setError] = useState(false);
 
+
     const {patient, email, date, time, number, appointmentReason} = appointment;
 
     
@@ -61,6 +62,7 @@ const Form = ({getAppointment}) => {
             [e.target.name] : e.target.value,
         })
     };
+
 
 
     return ( 
@@ -124,6 +126,7 @@ const Form = ({getAppointment}) => {
                 <button
                     type='submit'
                     className="u-full-width button-primary"
+                    
                 >Get Appointment</button>                  
             </form>
 
