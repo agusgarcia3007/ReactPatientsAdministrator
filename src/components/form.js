@@ -1,7 +1,7 @@
 import React, { useState }from 'react'
-import uuid from 'react-uuid';
+import uuid from 'react-uuid'
 
-const Form = () => {
+const Form = ({getAppointment}) => {
 
     //state for appointments
     const [appointment, setAppointment] = useState({
@@ -10,8 +10,50 @@ const Form = () => {
         date:'',
         time:'',
         number:'',
-        appointment_reason:''
-    })
+        appointmentReason:''
+    });
+
+    const [error, setError] = useState(false);
+
+    const {patient, email, date, time, number, appointmentReason} = appointment;
+
+    
+    const appointmentSubmit = e => {
+        e.preventDefault();
+
+        //validating form
+        if(patient.trim()==='' ||
+           email.trim()==='' || 
+           date.trim()==='' ||
+           time.trim()==='' ||
+           number.trim()===''||
+           appointmentReason.trim()===''
+           ){
+            setError(true);
+            return;
+        }
+           
+         setError(false);
+
+        //get an ID
+        appointment.id = uuid();
+
+        //create the appointment
+        getAppointment(appointment);
+
+        //reset te form
+        setAppointment({
+            patient:'',
+            email:'',
+            date:'',
+            time:'',
+            number:'',
+            appointmentReason:''
+        })
+    }
+
+
+
 
     const [error, setError] = useState(false)
 
@@ -21,7 +63,7 @@ const Form = () => {
             ...appointment,
             [e.target.name] : e.target.value,
         })
-    }
+    };
 
 
     const {patient, email, date, time, number, appointment_reason} = appointment
@@ -45,16 +87,14 @@ const Form = () => {
     return ( 
         <>
             <h2>Get an Appointment</h2>
+            {error ? <p className='alerta-error'>All fields are required</p> :null}
 
-                {error ? <p className='alerta-error'>All fields are required</p> : null}
 
-            <form
-                onSubmit={() => appointmentSubmit()}
-            >
+            <form onSubmit={appointmentSubmit}>
                 <label>Patient's Name</label>
                 <input
                  type="text" 
-                 name='Patient'
+                 name='patient'
                  className='u-full-width'
                  placeholder="Patient's Name"
                  onChange={handleChange}
@@ -94,13 +134,13 @@ const Form = () => {
                  type="number" 
                  name='number'
                  className='u-full-width'
-                 placeholder='Numero de Telefono'
+                 placeholder='phone number'
                  onChange={handleChange}
                  value={number}
                  />
 
                 <label>Appointment reason</label>
-                <textarea cols="30" rows="10" name='appointment_reason' className="u-full-width" placeholder='Motivo de Consulta' onChange={handleChange} value={appointment_reason}></textarea>
+                <textarea cols="30" rows="10" name='appointmentReason' className="u-full-width" placeholder='appointment reason' onChange={handleChange}></textarea>
 
                 <button
                     type='submit'
