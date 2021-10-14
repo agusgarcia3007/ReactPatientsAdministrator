@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './components/form';
 import Appointment from './components/Appointment';
 
 const App = () => {
 
-  const [appointments, setAppointments] = useState([]);
+
+  //save appointments in local storage
+  let initialAppointments = JSON.parse(localStorage.getItem('appointments'));
+    if(!initialAppointments){
+      initialAppointments = [];
+    }
+
+  const [appointments, setAppointments] = useState(initialAppointments);
+
+  useEffect(() => {
+    initialAppointments ?
+    localStorage.setItem('appointments', JSON.stringify(appointments)) :
+    localStorage.setItem('appointments', JSON.stringify([]));
+  },[appointments]);
 
   const getAppointment = appointment => {
       setAppointments([
@@ -19,6 +32,9 @@ const App = () => {
     setAppointments(newAppointment);
   };
 
+  //conditional message
+  const title = appointments.length === 0 ? 'Not Appointments yet' : 'Appointments';
+
   return(
     <>
       <div className="container">
@@ -29,7 +45,7 @@ const App = () => {
             />
           </div>
           <div className="one-half column">
-            <h2>Appointments</h2>
+            <h2>{title}</h2>
             {appointments.map(appointment => (
               <Appointment 
                 key={appointment.id}
