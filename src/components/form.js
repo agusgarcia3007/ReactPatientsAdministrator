@@ -10,12 +10,12 @@ const Form = () => {
         date:'',
         time:'',
         number:'',
-        appointment_reason:''
+        appointmentReason:''
     });
 
     const [error, setError] = useState(false);
 
-    const {patient, email, date, time, number, appointment_reason} = appointment;
+    const {patient, email, date, time, number, appointmentReason} = appointment;
 
     //validating form
     const appointmentSubmit = e => {
@@ -26,7 +26,7 @@ const Form = () => {
            date.trim()==='' ||
            time.trim()==='' ||
            number.trim()===''||
-           appointment_reason.trim()===''
+           appointmentReason.trim()===''
            ){
                console.log('error');
             setError(true);
@@ -44,10 +44,10 @@ const Form = () => {
     return ( 
         <>
             <h2>Get an Appointment</h2>
+            {error ? <p className='alerta-error'>All fields are required</p> :null}
 
-            {error ? <p></p> :null}
 
-            <form onSubmit={() => appointmentSubmit()}>
+            <form onSubmit={appointmentSubmit}>
                 <label>Patient's Name</label>
                 <input
                  type="text" 
@@ -87,12 +87,12 @@ const Form = () => {
                  type="number" 
                  name='number'
                  className='u-full-width'
-                 placeholder='Numero de Telefono'
+                 placeholder='phone number'
                  onChange={handleChange}
                  />
 
                 <label>Appointment reason</label>
-                <textarea cols="30" rows="10" name='appointment_reason' className="u-full-width" placeholder='Motivo de Consulta' onChange={handleChange}></textarea>
+                <textarea cols="30" rows="10" name='appointmentReason' className="u-full-width" placeholder='appointment reason' onChange={handleChange}></textarea>
 
                 <button
                     type='submit'
