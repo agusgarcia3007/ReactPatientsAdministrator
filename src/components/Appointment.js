@@ -8,7 +8,7 @@ const Appointment = ({appointment, delAppointment}) => (
         <p>Date: <span>{appointment.date}</span></p>
         <p>Time: <span>{appointment.time}</span></p>
         <p>Number: <span>{appointment.number}</span></p>
-        <p>appointmentReason: <span>{appointment.appointmentReason}</span></p>
+        <p>appointment Reason: <span>{appointment.appointmentReason}</span></p>
         <button 
         className="button eliminar u-full-width"
         onClick={() => delAppointment(appointment.id)}
