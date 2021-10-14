@@ -18,7 +18,7 @@ const Form = () => {
     //input value changes
     const handleChange = e => {
         setAppointment({
-            ... appointment,
+            ...appointment,
             [e.target.name] : e.target.value,
         })
     }
@@ -40,7 +40,7 @@ const Form = () => {
 
        //get an id
        appointment.id = uuid();
-       console.log(appointment);
+    //    console.log(appointment);
 
     return ( 
         <>
